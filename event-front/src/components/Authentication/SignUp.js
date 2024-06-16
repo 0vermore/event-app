@@ -97,6 +97,7 @@ const SignUp = ({ signUpUser }) => {
 						]}
 					>
 						<Input
+							size='large'
 							prefix={<UserOutlined />}
 							placeholder='First name'
 							name='first_name'
@@ -114,6 +115,7 @@ const SignUp = ({ signUpUser }) => {
 						]}
 					>
 						<Input
+							size='large'
 							prefix={<UserOutlined />}
 							placeholder='Last name'
 							name='last_name'
@@ -132,6 +134,7 @@ const SignUp = ({ signUpUser }) => {
 						]}
 					>
 						<Input
+							size='large'
 							prefix={<MailOutlined />}
 							placeholder='Email'
 							name='email'
@@ -150,6 +153,7 @@ const SignUp = ({ signUpUser }) => {
 						hasFeedback
 					>
 						<Input.Password
+							size='large'
 							prefix={<LockOutlined />}
 							type='password'
 							placeholder='Password'
@@ -178,6 +182,7 @@ const SignUp = ({ signUpUser }) => {
 						]}
 					>
 						<Input.Password
+							size='large'
 							prefix={<LockOutlined />}
 							type='password'
 							placeholder='Password confirmation'

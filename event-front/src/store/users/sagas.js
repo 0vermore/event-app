@@ -10,7 +10,7 @@ export default function* watcherSaga() {
 
 function* watchResourceCreateRequest({ payload: { data, history } }) {
 	try {
-		const response = yield call(Api.User.create, data)
+		const response = yield call(Api.Users.create, data)
 
 		yield put(actions.userCreateSuccess(response.data))
 		yield put(sessionCreateSuccess(response.data))

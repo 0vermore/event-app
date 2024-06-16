@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { TeamOutlined, UsergroupAddOutlined, ContactsOutlined, LogoutOutlined } from '@ant-design/icons'
 import { Button, Layout, Menu, theme } from 'antd'
 import { sessionDeleteRequest } from '../../store/authentication/actions'
@@ -10,8 +10,19 @@ const { Header, Sider, Content } = Layout
 const AppContainer = ({ children }) => {
 	const dispatch = useDispatch()
 	const history = useNavigate()
+	const pathname = window.location.pathname
+
+	const [pageName, setPageName] = useState('')
+	const [current, setCurrent] = useState(pathname)
+
+	const titles = {
+		'/': 'All Events',
+		'/new-event': 'New Event',
+		'/my-events': 'My Events',
+	}
+
 	const {
-		currentSession: { first_name, last_name },
+		currentSession: { full_name },
 	} = useSelector((state) => state.authentication)
 
 	const {
@@ -22,9 +33,19 @@ const AppContainer = ({ children }) => {
 		dispatch(sessionDeleteRequest({ history }))
 	}
 
+	const handleClickLink = (link) => {
+		history(link)
+		setPageName(titles[link])
+	}
+
+	useEffect(() => {
+		setCurrent(pathname)
+		setPageName(titles[pathname])
+	}, [pathname])
+
 	return (
 		<Layout style={{ height: '100vh' }}>
-			<Sider breakpoint='lg' collapsedWidth='0'>
+			<Sider trigger={null} collapsible>
 				<div
 					className='demo-logo-vertical'
 					style={{
@@ -37,27 +58,28 @@ const AppContainer = ({ children }) => {
 						color: '#fff',
 					}}
 				>
-					{`${first_name} ${last_name}`}
+					{full_name}
 				</div>
 				<Menu
 					theme='dark'
 					mode='inline'
-					defaultSelectedKeys={['1']}
+					selectedKeys={[current]}
+					onClick={(e) => setCurrent(e.key)}
 					items={[
 						{
-							key: '1',
+							key: '/',
 							icon: <TeamOutlined />,
-							label: <Link to='/'>All Events</Link>,
+							label: <div onClick={() => handleClickLink('/')}>All Events</div>,
 						},
 						{
-							key: '2',
+							key: '/new-event',
 							icon: <UsergroupAddOutlined />,
-							label: <Link to='/new-event'>New Event</Link>,
+							label: <div onClick={() => handleClickLink('/new-event')}>New Event</div>,
 						},
 						{
-							key: '3',
+							key: '/my-events',
 							icon: <ContactsOutlined />,
-							label: <Link to='/my-events'>My Events</Link>,
+							label: <div onClick={() => handleClickLink('/my-events')}>My Events</div>,
 						},
 					]}
 				/>
@@ -65,10 +87,13 @@ const AppContainer = ({ children }) => {
 			<Layout>
 				<Header
 					style={{
-						padding: 0,
+						display: 'flex',
+						justifyContent: 'space-between',
+						padding: '0 20px',
 						background: colorBgContainer,
 					}}
 				>
+					<div style={{ fontWeight: '600', fontSize: '24px' }}>{pageName}</div>
 					<Button
 						type='text'
 						icon={<LogoutOutlined />}
@@ -89,6 +114,7 @@ const AppContainer = ({ children }) => {
 						minHeight: 280,
 						background: colorBgContainer,
 						borderRadius: borderRadiusLG,
+						overflowY: 'auto',
 					}}
 				>
 					{children}

@@ -1,0 +1,9 @@
+.list__item {
+	padding: 16px !important;
+	gap: 20px;
+	cursor: pointer;
+}
+
+.list__item:hover {
+	background-color: #f6f6f6e0;
+}

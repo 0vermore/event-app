@@ -13,7 +13,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
       expires: 14.days.from_now
     }
 
-    render 'user/auth/show', status: :created
+    render 'users/auth/show', status: :created
   end
 
   private

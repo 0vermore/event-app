@@ -6,7 +6,7 @@ class Api::V1::AuthenticationsController < Api::V1::ApplicationController
   expose :user, -> { current_user }
 
   def show
-    render 'user/auth/show', status: :ok
+    render 'users/auth/show', status: :ok
   end
 
   def create
@@ -17,7 +17,7 @@ class Api::V1::AuthenticationsController < Api::V1::ApplicationController
         expires: 14.days.from_now
       }
 
-      render 'user/auth/create', status: :created
+      render 'users/auth/create', status: :created
     else
       render json: { errors: 'Invalid credentials' }, status: :not_found
     end

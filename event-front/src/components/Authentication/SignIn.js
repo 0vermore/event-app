@@ -89,6 +89,7 @@ const SignIn = ({ signInUser }) => {
 						]}
 					>
 						<Input
+							size='large'
 							prefix={<MailOutlined />}
 							placeholder='Email'
 							name='email'
@@ -106,6 +107,7 @@ const SignIn = ({ signInUser }) => {
 						]}
 					>
 						<Input.Password
+							size='large'
 							prefix={<LockOutlined />}
 							type='password'
 							placeholder='Password'
